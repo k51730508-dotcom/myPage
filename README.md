@@ -1,6 +1,6 @@
 # TSMS Company
 
-교육사업을 소개하는 TSMS Company의 한 페이지 홈페이지입니다.
+아이돌 산업을 소개하는 TSMS Company의 한 페이지 홈페이지입니다.
 
 ## 실행
 
