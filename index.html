@@ -3,154 +3,221 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f6f2">
-  <meta name="description" content="이름을 입력하고 따뜻한 환영 인사를 받아보세요.">
-  <title>어서오세요 | 반가운 인사</title>
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="배움이 성장으로 이어지는 곳, TSMS Company 교육 프로그램을 만나보세요.">
+  <title>TSMS Company | 배움이 성장으로 이어지는 곳</title>
   <style>
     :root {
-      color-scheme: light;
       font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      color: #20251f;
-      background: #f7f6f2;
+      color: #19251f;
+      background: #f7f8f5;
       font-synthesis: none;
       text-rendering: optimizeLegibility;
+      --green: #245b46;
+      --muted: #68746d;
+      --line: #e4e9e3;
     }
     * { box-sizing: border-box; }
-    body {
-      min-width: 320px;
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-      padding: 32px 20px;
-      background: radial-gradient(ellipse at 50% 0%, #e9efdf 0, transparent 48%), #f7f6f2;
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    header { height: 82px; display: flex; align-items: center; border-bottom: 1px solid #e8ece7; background: rgba(247,248,245,.9); }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 18px; font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 10px; color: white; background: var(--green); font-size: 17px; }
+    .nav-links { display: flex; align-items: center; gap: 34px; color: #526057; font-size: 14px; font-weight: 600; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { padding: 12px 18px; border-radius: 10px; color: white !important; background: var(--green); }
+    .hero { position: relative; overflow: hidden; padding: 92px 0 100px; }
+    .hero::before { position: absolute; z-index: -1; top: 20px; right: max(-160px, calc((100vw - 1450px)/2)); width: 580px; height: 580px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e1eddb, #edf2e9 54%, #f7f8f5 72%); content: ""; }
+    .hero-grid { display: grid; grid-template-columns: 1fr .88fr; align-items: center; gap: 50px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .eyebrow::before { width: 22px; height: 2px; background: #8ba994; content: ""; }
+    h1 { margin: 0; font-size: clamp(43px, 5.7vw, 68px); line-height: 1.2; letter-spacing: -.065em; }
+    h1 span { color: var(--green); }
+    .hero-copy { max-width: 470px; margin: 22px 0 30px; color: var(--muted); font-size: 16px; line-height: 1.9; }
+    .actions { display: flex; gap: 12px; align-items: center; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 20px; border: 1px solid var(--green); border-radius: 10px; color: white; background: var(--green); font-size: 14px; font-weight: 700; transition: transform .18s, background .18s; }
+    .button:hover { transform: translateY(-2px); background: #194a38; }
+    .button.secondary { color: var(--green); background: transparent; }
+    .button.secondary:hover { background: #edf2eb; }
+    .visual { position: relative; min-height: 390px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: 360px; height: 360px; border: 1px solid #d6e2d3; border-radius: 50%; }
+    .orbit::before, .orbit::after { position: absolute; border: 1px solid #dce7da; border-radius: 50%; content: ""; }
+    .orbit::before { inset: 25px; }
+    .orbit::after { inset: 52px; }
+    .learning-card { position: relative; width: 272px; padding: 26px; border: 1px solid #e6ece5; border-radius: 20px; background: rgba(255,255,255,.92); box-shadow: 0 24px 70px #23433318; transform: rotate(-3deg); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; }
+    .card-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; background: #edf3e9; font-size: 22px; }
+    .tag { padding: 7px 10px; border-radius: 20px; color: #477357; background: #eff6ed; font-size: 11px; font-weight: 700; }
+    .learning-card h2 { margin: 22px 0 8px; font-size: 20px; letter-spacing: -.04em; }
+    .learning-card p { margin: 0; color: #78837b; font-size: 13px; line-height: 1.6; }
+    .progress-label { display: flex; justify-content: space-between; margin: 25px 0 9px; color: #66736a; font-size: 11px; }
+    .progress { height: 7px; overflow: hidden; border-radius: 10px; background: #edf0eb; }
+    .progress span { display: block; width: 72%; height: 100%; border-radius: inherit; background: #709779; }
+    .float-note { position: absolute; right: 1%; bottom: 21px; padding: 14px 17px; border: 1px solid #e6ece5; border-radius: 14px; background: white; box-shadow: 0 12px 32px #23433312; color: #34473a; font-size: 12px; font-weight: 700; transform: rotate(3deg); }
+    .float-note span { margin-right: 7px; color: #78a174; }
+    .section { padding: 85px 0; }
+    .section-heading { max-width: 600px; margin-bottom: 36px; }
+    .section-heading .eyebrow { margin-bottom: 13px; }
+    .section-heading h2 { margin: 0; font-size: clamp(29px, 3.5vw, 40px); letter-spacing: -.055em; }
+    .section-heading p { margin: 13px 0 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .programs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .program { min-height: 220px; padding: 27px; border: 1px solid var(--line); border-radius: 16px; background: white; transition: transform .2s, box-shadow .2s; }
+    .program:hover { transform: translateY(-4px); box-shadow: 0 16px 35px #263c2d0c; }
+    .program-icon { width: 47px; height: 47px; display: grid; place-items: center; margin-bottom: 24px; border-radius: 14px; background: #eef3eb; font-size: 22px; }
+    .program:nth-child(2) .program-icon { background: #f4f0e5; }
+    .program:nth-child(3) .program-icon { background: #edf0f5; }
+    .program h3 { margin: 0 0 9px; font-size: 18px; letter-spacing: -.04em; }
+    .program p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+    .about { padding: 68px 0; background: #edf2eb; }
+    .about-row { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .about-copy { max-width: 650px; }
+    .about-copy h2 { margin: 0 0 14px; font-size: clamp(28px, 3.5vw, 38px); letter-spacing: -.055em; }
+    .about-copy p { margin: 0; color: #5f6e63; font-size: 15px; line-height: 1.9; }
+    .about-stamp { flex: 0 0 140px; width: 140px; height: 140px; display: grid; place-items: center; border: 1px solid #cddacb; border-radius: 50%; color: var(--green); font-size: 13px; font-weight: 800; line-height: 1.7; text-align: center; }
+    .contact { padding: 82px 0; }
+    .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 34px 38px; border-radius: 18px; color: white; background: #234d3b; }
+    .contact-panel .eyebrow { color: #c1d8c3; }
+    .contact-panel h2 { margin: 0; font-size: 27px; letter-spacing: -.05em; }
+    .contact-panel p { margin: 9px 0 0; color: #d3dfd5; font-size: 14px; }
+    .contact-panel .button { border-color: white; color: #214936; background: white; white-space: nowrap; }
+    .contact-panel .button:hover { background: #eff4ee; }
+    footer { padding: 28px 0 32px; border-top: 1px solid var(--line); color: #78847c; font-size: 12px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-brand { margin-bottom: 8px; color: #34443a; font-size: 14px; font-weight: 800; }
+    footer p { margin: 4px 0; }
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 36px, 560px); }
+      header { height: 70px; }
+      .nav-links { gap: 17px; font-size: 12px; }
+      .nav-links a:nth-child(2) { display: none; }
+      .nav-cta { padding: 10px 12px; }
+      .hero { padding: 62px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 15px; }
+      .hero-copy { font-size: 15px; }
+      .visual { min-height: 350px; }
+      .orbit { width: 315px; height: 315px; }
+      .section { padding: 64px 0; }
+      .programs { grid-template-columns: 1fr; }
+      .program { min-height: auto; }
+      .program-icon { margin-bottom: 16px; }
+      .about-row { align-items: flex-start; }
+      .about-stamp { flex-basis: 100px; width: 100px; height: 100px; font-size: 11px; }
+      .contact { padding: 62px 0; }
+      .contact-panel { align-items: flex-start; flex-direction: column; padding: 28px 24px; }
+      .footer-row { flex-direction: column; }
     }
-    main { width: min(100%, 520px); text-align: center; }
-    .mark {
-      width: 64px;
-      height: 64px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 30px;
-      border: 1px solid #d9e1cf;
-      border-radius: 22px;
-      color: #456342;
-      background: #eef2e8;
-      font-size: 29px;
-      transform: rotate(-5deg);
-    }
-    .eyebrow {
-      margin: 0 0 14px;
-      color: #688064;
-      font-size: 12px;
-      font-weight: 750;
-      letter-spacing: .18em;
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(32px, 8vw, 48px);
-      font-weight: 750;
-      letter-spacing: -.055em;
-      line-height: 1.25;
-    }
-    .description {
-      margin: 18px 0 34px;
-      color: #777d73;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-    .card {
-      padding: 30px;
-      border: 1px solid #e8e8e0;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, .82);
-      box-shadow: 0 18px 55px rgba(42, 52, 36, .07);
-      text-align: left;
-    }
-    label { display: block; margin-bottom: 10px; font-size: 14px; font-weight: 700; }
-    .field { display: flex; gap: 10px; }
-    input {
-      width: 100%;
-      min-width: 0;
-      height: 54px;
-      padding: 0 16px;
-      border: 1px solid #dedfd7;
-      border-radius: 12px;
-      outline: none;
-      background: #fff;
-      color: #20251f;
-      font: inherit;
-      transition: border-color .18s, box-shadow .18s;
-    }
-    input::placeholder { color: #a5a89f; }
-    input:focus { border-color: #71896b; box-shadow: 0 0 0 4px #71896b22; }
-    button {
-      flex: 0 0 auto;
-      min-height: 54px;
-      padding: 0 20px;
-      border: 0;
-      border-radius: 12px;
-      background: #3f5e3d;
-      color: #fff;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .18s, transform .18s;
-    }
-    button:hover { background: #314c30; transform: translateY(-1px); }
-    button:focus-visible { outline: 3px solid #9eb490; outline-offset: 3px; }
-    .greeting {
-      min-height: 30px;
-      margin: 22px 2px 0;
-      color: #3f5e3d;
-      font-size: 19px;
-      font-weight: 750;
-      letter-spacing: -.03em;
-    }
-    .greeting:empty { display: none; }
-    footer { margin-top: 28px; color: #a0a399; font-size: 12px; }
-    @media (max-width: 440px) {
-      .card { padding: 23px 19px; }
-      .field { flex-direction: column; }
-      button { width: 100%; }
+    @media (max-width: 420px) {
+      .nav-links a:first-child { display: none; }
+      .actions { align-items: stretch; flex-direction: column; }
+      .visual { min-height: 320px; }
+      .orbit { width: 280px; height: 280px; }
+      .learning-card { width: 250px; }
+      .float-note { right: -4px; }
+      .about-row { flex-direction: column; }
+      .about-stamp { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <div class="mark" aria-hidden="true">✳</div>
-    <p class="eyebrow">A LITTLE HELLO</p>
-    <h1>오늘, 반가운 인사를<br>건네요</h1>
-    <p class="description">이름을 알려주시면 따뜻하게 맞이할게요.</p>
-
-    <form class="card" id="greeting-form">
-      <label for="name">이름</label>
-      <div class="field">
-        <input id="name" name="name" type="text" placeholder="이름을 입력해 주세요" autocomplete="name" maxlength="40" required>
-        <button type="submit">인사 받기 <span aria-hidden="true">→</span></button>
+  <header>
+    <nav class="nav wrap" aria-label="주요 메뉴">
+      <a class="brand" href="#home" aria-label="TSMS Company 홈"><span class="brand-mark" aria-hidden="true">T</span>TSMS Company</a>
+      <div class="nav-links">
+        <a href="#programs">교육 프로그램</a>
+        <a href="#about">회사 소개</a>
+        <a class="nav-cta" href="#contact">문의하기 <span aria-hidden="true">↗</span></a>
       </div>
-      <p class="greeting" id="greeting" role="status" aria-live="polite"></p>
-    </form>
-    <footer>반가운 하루의 시작</footer>
-  </main>
-  <script>
-    const form = document.querySelector('#greeting-form');
-    const nameInput = document.querySelector('#name');
-    const greeting = document.querySelector('#greeting');
+    </nav>
+  </header>
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const name = nameInput.value.trim();
-      if (!name) {
-        nameInput.focus();
-        return;
-      }
-      greeting.textContent = `${name} 님, 어서오세요!`;
-    });
-  </script>
+  <main id="home">
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div>
+          <p class="eyebrow">LEARN · GROW · GO FURTHER</p>
+          <h1>배움이 성장으로<br><span>이어지는 곳</span></h1>
+          <p class="hero-copy">배움은 새로운 가능성을 여는 시작입니다. TSMS Company는 각자의 목표와 속도에 맞춘 교육으로 한 걸음 더 나아가는 성장을 함께합니다.</p>
+          <div class="actions">
+            <a class="button" href="#programs">교육 프로그램 보기 <span aria-hidden="true">→</span></a>
+            <a class="button secondary" href="#about">TSMS 알아보기</a>
+          </div>
+        </div>
+        <div class="visual" aria-hidden="true">
+          <div class="orbit"></div>
+          <div class="learning-card">
+            <div class="card-top"><div class="card-icon">✎</div><span class="tag">오늘도 한 걸음</span></div>
+            <h2>나만의 배움이<br>성장이 되는 시간</h2>
+            <p>작은 배움이 모여 만드는<br>더 큰 가능성을 경험해 보세요.</p>
+            <div class="progress-label"><span>성장 여정</span><span>계속 진행 중</span></div>
+            <div class="progress"><span></span></div>
+          </div>
+          <div class="float-note"><span>✦</span>배움으로 여는 새로운 가능성</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="programs">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">WHAT WE OFFER</p>
+          <h2>목표에 맞춰, 함께 배우다</h2>
+          <p>필요한 역량과 배움의 목적에 맞춰 다양한 교육 경험을 제공합니다.</p>
+        </div>
+        <div class="programs">
+          <article class="program">
+            <div class="program-icon" aria-hidden="true">◎</div>
+            <h3>맞춤형 교육</h3>
+            <p>학습자의 목표와 수준을 살펴 꼭 필요한 내용부터 차근차근 배웁니다.</p>
+          </article>
+          <article class="program">
+            <div class="program-icon" aria-hidden="true">✦</div>
+            <h3>실무 역량 과정</h3>
+            <p>배운 내용을 실제 상황에 적용하며 자신감과 실천 역량을 키웁니다.</p>
+          </article>
+          <article class="program">
+            <div class="program-icon" aria-hidden="true">↗</div>
+            <h3>지속 성장 지원</h3>
+            <p>한 번의 수업을 넘어 배움이 꾸준한 성장으로 이어지도록 돕습니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-row wrap">
+        <div class="about-copy">
+          <p class="eyebrow">ABOUT TSMS</p>
+          <h2>사람의 가능성을 믿는 교육</h2>
+          <p>TSMS Company는 교육사업을 통해 사람과 조직이 가진 가능성을 발견하고 성장하도록 돕습니다. 배움의 과정은 즐겁고 실질적이어야 한다는 믿음으로, 더 나은 내일을 위한 교육 경험을 만들어갑니다.</p>
+        </div>
+        <div class="about-stamp" aria-label="배움, 성장, 가능성">배움에서 시작해<br>성장으로 이어지는<br>가능성</div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-panel wrap">
+        <div>
+          <p class="eyebrow">LET'S LEARN TOGETHER</p>
+          <h2>교육 문의가 있으신가요?</h2>
+          <p>전화로 편하게 문의해 주세요. 함께할 배움을 안내해 드립니다.</p>
+        </div>
+        <a class="button" href="tel:010-6777-1714">전화 문의 <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-row wrap">
+      <div><div class="footer-brand">TSMS Company</div><p>교육사업 | 대표자 김민서</p><p>연락처 <a href="tel:010-6777-1714">010-6777-1714</a></p></div>
+      <p>© 2026 TSMS Company. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
